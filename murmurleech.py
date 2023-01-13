@@ -49,9 +49,25 @@ with ThreadPoolExecutor(max_workers=4) as executor:
         for i, (sample, volume) in enumerate(zip(selected_samples, volumes)):
             file_name = f'sample_{i+1}_volume_{volume}.mp3'
             executor.submit(download_audio, sample, file_name, volume)
+        user_input = input("Do you want to add more streams? (yes/no)")
+        if user_input.lower() == "yes":
+            #Ask the user for the number of samples to download
+            num_samples = int(input("Enter the number of samples to download (up to 4):"))
+            if num_samples > 4:
+                num_samples = 4
+            elif num_samples < 1:
+                print("Number of samples should be at least 1.")
+                continue
+            for i in range(num_samples):
+                # Ask the user for the selected sample
+                sample = input(f"Enter the sample {i+1} from the list {sample_urls}:")
+                if sample not in sample_urls:
+                    print(f"{sample} is not a valid sample.")
+                    continue
+                selected_samples.append(sample)
+                # Ask the user for the selected volume
+                volume = float(input(f"Enter the volume for sample {i+1} between 50% and 100%: "))
+                volumes.append(volume)
+        else:
+            break
     print("Timer has expired, download complete")
-
-def download_audio(sample, file_name, volume):
-    response = requests.get(sample, stream=True)
-    if response.status_code == 200:
-        with open(file_name, 'wb') as f:
