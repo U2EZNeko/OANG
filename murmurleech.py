@@ -39,3 +39,19 @@ else:
         selected_samples.append(sample)
         # Ask the user for the selected volume
         volume = float(input(f"Enter the volume for sample {i+1} between 50% and 100%: "))
+#Ask the user for the timer
+h, m = map(int,input("Enter the timer in the format hh:mm: ").split(':'))
+d = datetime.timedelta(hours=h, minutes=m)
+end_time = datetime.datetime.now() + d
+# Create a ThreadPoolExecutor with 4 worker threads
+with ThreadPoolExecutor(max_workers=4) as executor:
+    while datetime.datetime.now() < end_time:
+        for i, (sample, volume) in enumerate(zip(selected_samples, volumes)):
+            file_name = f'sample_{i+1}_volume_{volume}.mp3'
+            executor.submit(download_audio, sample, file_name, volume)
+    print("Timer has expired, download complete")
+
+def download_audio(sample, file_name, volume):
+    response = requests.get(sample, stream=True)
+    if response.status_code == 200:
+        with open(file_name, 'wb') as f:
