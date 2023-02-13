@@ -2,7 +2,9 @@
 A script to create ambient noise mp3's in Python.
 
 Needs to be supplied with Samples.
+
 You can find free ones online, record your own or generate different "colored" noises for this.
+
 I will not provide any.
 
 
