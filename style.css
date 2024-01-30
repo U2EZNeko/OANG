@@ -1,0 +1,64 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+#soundControls {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sound {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sound:last-child {
+    margin-bottom: 0;
+}
+
+.playButton, #meanderToggle {
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.playButton:hover, #meanderToggle:hover {
+    background-color: #0056b3;
+}
+
+.volumeSlider {
+    margin-left: 20px;
+    flex-grow: 1;
+}
+
+.statusIndicator {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin-left: 10px;
+    background-color: red; /* Default to 'off' state */
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
+    #soundControls {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
